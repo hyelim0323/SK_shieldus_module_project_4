@@ -1,0 +1,8 @@
+cloudpathlib[s3]
+tensorflow==2.11.0
+torch
+torchvision
+torchaudio
+matplotlib
+opencv-python
+boto3

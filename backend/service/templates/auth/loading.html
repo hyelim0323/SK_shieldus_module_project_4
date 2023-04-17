@@ -1,0 +1,48 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../static/bootstrap/css/styles.css">
+    {# jQuery CDN #}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    {# 클라이언트의 정보를 클라이언트측에 저장시키겠다 => '쿠키'(서버/클라이언트모두저장),
+    웹스토리지(로컬,세션), 웹DB #}
+    {# jQuery-cookies CDN #}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
+    integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style type="text/css">
+    body {
+         display: flex;
+         align-items: center;
+         padding-top: 30px;
+         padding-bottom: 30px;
+         background-color: #fffdd4;
+    }
+    
+    #loading {
+       height: 150vw;
+    }
+    #loading-image{
+        margin-top: 20pt;
+        height: 150pt;
+        width: 150pt;
+        align-items: center;
+        padding-left: 650px;
+    }
+    </style>
+<!-- 이런식으로 페이지 내에서 추가적으로 기능을 수정할 수 있다 -->
+<title> loading_test </title>
+</head>
+<body>
+    <div id="loading">
+        <h3 style="padding-left: 630px; margin-top: 80px;">채팅창으로 이동 중 입니다...</h3>
+        <img id="loading-image" src="../static/bootstrap/images/Spinner-1s-200px.gif" alt="Loading..." />
+    </div>
+    <script type="text/javascript">
+        setTimeout(()=>{
+            $('#loading').empty();
+            window.location.href = "{{ url_for('chat_bp.chat_home') }}"
+        }, 3000*1)
+    </script>
+</body>
+</html>

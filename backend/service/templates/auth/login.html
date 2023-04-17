@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <title>공감 AI 챗봇</title>
+   <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+   {# jQuery CDN #}
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+   {# 클라이언트의 정보를 클라이언트측에 저장시키겠다 => '쿠키'(서버/클라이언트모두저장),
+   웹스토리지(로컬,세션), 웹DB #}
+   {# jQuery-cookies CDN #}
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
+      integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+   <style>
+      html,
+      body {
+         height: 100%;
+      }
+
+      body {
+         display: flex;
+         align-items: center;
+         padding-top: 30px;
+         padding-bottom: 30px;
+         background-color: #fffdd4;
+      }
+
+      .form-signin {
+         width: 100%;
+         max-width: 300px;
+         padding: 15px;
+         margin: auto;
+      }
+
+      .form-signin .form-floating:focus-within {
+         z-index: 2;
+      }
+
+      .form-signin input[type="text"] {
+         margin-bottom: 5px;
+         border-bottom-right-radius: 0;
+         border-bottom-left-radius: 0;
+      }
+
+      .form-signin input[type="password"] {
+         margin-bottom: 10px;
+         border-top-left-radius: 0;
+         border-top-right-radius: 0;
+      }
+
+      #submit_btn {
+         font-size: 15px;
+         background-color: #5574ff;
+         width: 100%;
+         height: 40px;
+         margin-bottom: 10px;
+      }
+   </style>
+   <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+</head>
+</div>
+<body class="text-center">
+   <div class="container" style="padding-top: 30px; max-width: 400px; background-color: #ffffff;">
+      <main class="form-signin">
+         <form action="login.jsp" method="post">
+            <img class="mb-4" src="../static/bootstrap/images/icons8-chat-room-64.png" alt="logo" width="72" height="72">
+            <h1 class="h3 mb-3 fw-normal">공감 AI 챗봇과 대화하기</h1>
+
+            <div class="form-floating">
+               <input type="text" class="form-control" id="id" placeholder="아이디">
+            </div>
+            <div class="form-floating">
+               <input type="password" class="form-control" id="pwd" placeholder="비밀번호">
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" id="submit_btn" type="submit">로그인</button>
+
+            <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="signup"
+                  style="color: #393f81;">Register here</a></p>
+
+            <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+         </form>
+      </main>
+   </div>
+   <script>
+      $('form').on('submit', e => {
+         e.preventDefault()
+         console.log('로그인 버튼을 눌렀다')
+         var id = $("#id").val().trim();
+         var pw = $("#pwd").val().trim();
+         console.log("[" + id + "]", "[" + pw + "]")
+         if (id === '' || pw === '') {
+            alert("회원 정보를 모두 입력하세요.");
+            return false
+         } else {
+            $.post({
+               url: '/auth/login',
+               data: { uid: id, upw: pw },
+               success: res => {
+                  console.log(res)
+                  // 토큰을 쿠키에 저장
+                  let access_token = res.token
+                  console.log(access_token)
+                  if (res.code == 1) {
+                     // 토큰을 쿠키에 저장
+                     // path => 토큰의 유효범위 (URL 기준), '/' => 전체패스를 적용
+                     $.cookie('token', access_token, { path: '/' })
+                     // 특정 페이지로 이동
+                     window.location.replace("{{ url_for('auth_bp.loading') }}")
+                  } else {
+                     // 토큰 발행 실행.
+                     alert(res.msg)
+                  }
+               }
+            })
+         }
+         return false
+
+      })
+   </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>공감 AI 챗봇</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="../static/bootstrap/css/cover.css"> -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+</head>
+
+<body class="text-center" style='background-color: #fffdd4;'>
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <!-- <header class="mb-auto">
+      <div>
+        <h3 class="float-md-start mb-0">AI 기반 감정 인식 챗봇</h3>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Home</a>
+        <a class="nav-link fw-bold py-1 px-0" href="#">Features</a>
+        <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
+        </nav>
+      </div>
+    </header> -->
+
+    <main class="px-3" style="position: absolute; top: 200px; left: 100px; right: 100px;">
+      <h1 style="margin-bottom: 30px">채팅이 종료되었습니다.</h1>
+      <h3 id="last" style="margin-bottom: 50px">결과 분석 중 입니다.</h3> 
+      <button type="button" class="lead" onClick="location.href='/chat'">다시 채팅하기</button>
+      <!-- <p class="lead" id="back_button" onclick="history.go()"> -->
+        <!-- 채팅으로 다시 돌아가기 -->
+        <!-- <a href="#" class="btn btn-lg btn-light fw-bold border-white bg-white" id="back">채팅으로 돌아가기</a> -->
+      </p>
+    </main>
+  </div>  
+  <script type="text/javascript">
+      $.post({
+          url:'/chat/chat_end_predict',
+          success:res=>{
+            console.log( res )  // 예측 결과
+            if(res.code == 0)
+              $('#last').html(`${res.msg}`)
+            else{
+              $('#last').html(`${res.msg}`)
+            }
+          }
+      })  
+    
+  </script>
+</body>
+
+</html>
