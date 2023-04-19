@@ -3,8 +3,8 @@ https://user-images.githubusercontent.com/72790897/233084521-42838112-08a4-40d2-
 https://user-images.githubusercontent.com/72790897/233084530-96f3c502-e12e-42a5-93a5-3a14182e9fa0.png
 
 # 시스템 구조
-- https://user-images.githubusercontent.com/72790897/233083614-b9d15fcf-2429-40ea-b9e3-3af6418ff105.JPG
-- https://user-images.githubusercontent.com/72790897/233083623-714f7c23-e98d-4cc5-8501-6afd2f837b84.JPG
+![인프라구성도1](https://user-images.githubusercontent.com/72790897/233083614-b9d15fcf-2429-40ea-b9e3-3af6418ff105.JPG)
+![인프라구성도2](https://user-images.githubusercontent.com/72790897/233083623-714f7c23-e98d-4cc5-8501-6afd2f837b84.JPG)
 
 # 트리구조
   - Tier-3
